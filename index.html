@@ -1,88 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Name | Personal Brand</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HaldenG - Contact Me</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-  </style>
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+       emailjs.init("WTxMGRMWvGk1q9fo1"); // Your public key
+    })();
+  </script>
 </head>
-<body class="bg-white text-gray-900">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
 
-  <!-- NAV -->
-  <nav class="flex justify-between items-center px-8 py-4 shadow-sm">
-    <h1 class="text-xl font-bold">YourName</h1>
-    <div class="space-x-6 text-sm">
-      <a href="#about" class="hover:text-gray-600">About</a>
-      <a href="#work" class="hover:text-gray-600">Work</a>
-      <a href="#contact" class="hover:text-gray-600">Contact</a>
-    </div>
-  </nav>
+  <form id="contactForm" class="bg-white shadow-lg rounded-xl p-8 max-w-md w-full space-y-6">
+    <h2 class="text-2xl font-bold text-gray-800 text-center">Contact Me</h2>
+    <p class="text-gray-500 text-center">Fill in the form and I’ll get back to you ASAP!</p>
 
-  <!-- HERO -->
-  <section class="h-screen flex flex-col justify-center items-center text-center px-6">
-    <h2 class="text-4xl md:text-6xl font-bold mb-4">I help ideas become reality.</h2>
-    <p class="text-lg text-gray-600 max-w-xl mb-6">
-      Videographer. Creator. Problem solver. I turn concepts into visuals that actually mean something.
-    </p>
-    <a href="#contact" class="bg-black text-white px-6 py-3 rounded-2xl hover:opacity-80 transition">Work With Me</a>
-  </section>
+    <input type="text" name="name" placeholder="Your Name" required
+      class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
 
-  <!-- ABOUT -->
-  <section id="about" class="py-20 px-8 max-w-4xl mx-auto">
-    <h3 class="text-3xl font-semibold mb-6">About Me</h3>
-    <p class="text-gray-600 leading-relaxed">
-      I'm someone who hates average. I create content, build ideas, and push things past “good enough.” 
-      Whether it’s video production, storytelling, or building systems, I focus on impact — not just aesthetics.
-    </p>
-  </section>
+    <input type="email" name="email" placeholder="Your Email" required
+      class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
 
-  <!-- WORK -->
-  <section id="work" class="py-20 px-8 bg-gray-50">
-    <div class="max-w-5xl mx-auto">
-      <h3 class="text-3xl font-semibold mb-10">Selected Work</h3>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 bg-white rounded-2xl shadow-sm">
-          <h4 class="font-semibold">Corporate Video</h4>
-          <p class="text-sm text-gray-500 mt-2">School branding project</p>
-        </div>
-        <div class="p-6 bg-white rounded-2xl shadow-sm">
-          <h4 class="font-semibold">Event Coverage</h4>
-          <p class="text-sm text-gray-500 mt-2">Open house & live events</p>
-        </div>
-        <div class="p-6 bg-white rounded-2xl shadow-sm">
-          <h4 class="font-semibold">Creative Projects</h4>
-          <p class="text-sm text-gray-500 mt-2">Personal storytelling work</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <textarea name="message" placeholder="Your Message" required rows="5"
+      class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"></textarea>
 
-  <!-- CONTACT -->
-  <section id="contact" class="py-20 px-8 max-w-3xl mx-auto text-center">
-    <h3 class="text-3xl font-semibold mb-6">Let’s Work</h3>
-    <p class="text-gray-600 mb-6">If you have something in mind, let’s make it happen.</p>
-    <form class="space-y-4" onsubmit="handleSubmit(event)">
-      <input type="text" placeholder="Your Name" required class="w-full p-3 border rounded-xl" />
-      <input type="email" placeholder="Your Email" required class="w-full p-3 border rounded-xl" />
-      <textarea placeholder="Your Message" required class="w-full p-3 border rounded-xl"></textarea>
-      <button class="bg-black text-white px-6 py-3 rounded-2xl w-full">Send Message</button>
-    </form>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="text-center py-6 text-sm text-gray-500">
-    © 2026 YourName. All rights reserved.
-  </footer>
+    <button type="submit"
+      class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300">
+      Send Message
+    </button>
+  </form>
 
   <script>
-    function handleSubmit(e) {
+    const form = document.getElementById('contactForm');
+
+    form.addEventListener('submit', function(e){
       e.preventDefault();
-      alert('Hook this up to Supabase or Email API later.');
-    }
+
+      const name = form.name.value;
+      const email = form.email.value;
+      const message = form.message.value;
+
+      emailjs.send('service_d43s9ky', 'template_6ng9ubn', {
+        from_name: name,
+        from_email: email,
+        message: message
+      })
+      .then(() => {
+        alert('Message sent! I\'ll get back to you soon.');
+        form.reset();
+      })
+      .catch((err) => {
+        alert('Something went wrong. Try again.');
+        console.error(err);
+      });
+    });
   </script>
 
 </body>
